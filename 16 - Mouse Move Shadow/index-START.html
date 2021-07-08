@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+  const hero = document.querySelector('.hero');
+  const text = document.querySelector('h1');
+  const walk = 500;
+
+  // function shadow(e) {
+  //   // console.log(e);
+  //   const width = hero.offsetWidth;
+  //   const height = hero.offsetHeight;
+
+  //   let x = e.offsetX;
+  //   let y = e.offsetY;
+
+  //   // console.log(e.target.offsetTop);
+  //   if(this !== e.target) {
+  //     x = x + e.target.offsetLeft;
+  //     y = y + e.target.offsetTop;
+  //   }
+
+  //   const xWalk = Math.round(x / width * walk) - (walk / 2);
+  //   const yWalk = Math.round(y / width * walk) - (walk / 2);
+
+  //   console.log(xWalk, yWalk);
+
+  //   text.style.textShadow = `
+  //     ${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
+  //     ${-xWalk}px ${yWalk}px 0 rgba(0,255,255,0.7),
+  //     ${yWalk}px ${-xWalk}px 0 rgba(0,255,0,0.7),
+  //     ${-yWalk}px ${xWalk}px 0 rgba(0,0,255,0.7)`;
+
+
+  // }
+
+
+
+  function shadow(e) {
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+    let centerX = window.innerWidth / 2;
+    let centerY = window.innerHeight / 2;
+    let moveX = centerX - mouseX;
+    let moveY = centerY - mouseY;
+
+    text.style.textShadow = `
+      ${moveX}px ${-moveY}px 0 rgba(255,0,255,0.7),
+      ${-moveX}px ${moveY}px 0 rgba(0,255,255,0.7),
+      ${-moveY}px ${-moveX}px 0 rgba(0,255,0,0.7),
+      ${moveY}px ${moveX}px 0 rgba(0,0,255,0.7)`;
+  }
+
+  hero.addEventListener('mousemove', shadow);
+</script>
+</body>
+</html>
