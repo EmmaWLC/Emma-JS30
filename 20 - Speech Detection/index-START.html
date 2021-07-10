@@ -6,12 +6,65 @@
 </head>
 <body>
 
-  <div class="words" contenteditable>
+  <div class="words" contenteditable>                                                              
   </div>
-
 <script>
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  recognition.lang = 'cmn-Hant-TW';
+
+  // 他是物件
+  let p = document.createElement('p');
+  const word = document.querySelector('.words');
+  
+  word.appendChild(p);
+  
+  recognition.addEventListener('result', (e)=>{
+    console.log(e.results[0][0].transcript);
+    console.log(e);
+
+    p.textContent = e.results[0][0].transcript;
+    if(e.results[0].isFinal === true){
+      console.log('yeah');
+      //p = document.createElement('p');
+      word.appendChild(p);
+    };
+  });
+
+  recognition.addEventListener('end', recognition.start);
+ 
+  
+  // function myFunc( a, b){
+  //   console.log("first");
+  //   return (a+b).toString();
+  // }
+  // var myObj = {a:123, b: myFunc};
+  // console.log(myObj.b(3,5));
+
+  recognition.start();
+  
+  var myArr = [];
+
+  var myObj = {a:1,b:2};
+  var myObj2 = {a:1,b:2};
+  var myObj3 = {a:1,b:2};
+
+  myArr.push(myObj);
+  myArr.push(myObj2);
+  myArr.push(myObj3);
+  //console.log(myArr);
+
+  myObj2.b = 5; 
+    
+  //console.log(myArr);
+
+  myObj2 = {x:3,y:4};
+  console.log(myArr);
+  console.log(myArr[1]);
+  myObj2.y = 100;
+  console.log(myObj2);
 
 </script>
 
