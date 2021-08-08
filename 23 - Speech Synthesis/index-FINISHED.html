@@ -39,10 +39,13 @@
 
   function populateVoices() {
     voices = this.getVoices();
-    voicesDropdown.innerHTML = voices
-      .filter(voice => voice.lang.includes('en'))
-      .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
-      .join('');
+    //console.log(voices);
+    let myStr = "";
+    for(let i = 0; i < voices.length; i++){
+      myStr += `<option value="${voices[i].name}">${voices[i].name} (${voices[i].lang})</option>\n`;
+    }
+    //console.log(myStr);
+    voicesDropdown.innerHTML = myStr;
   }
 
   function setVoice() {
@@ -63,12 +66,29 @@
     toggle();
   }
 
+  function myFunc(){
+    console.log("myFunc called!");
+    return function a (){
+      console.log("emma is cute");
+    }
+  }
+
+  function myFunc2(){
+    return 1+3;
+  }
+
+  console.log(myFunc2());
+
+  function myFunc3(){
+    toggle(false);
+  }
+
   speechSynthesis.addEventListener('voiceschanged', populateVoices);
   voicesDropdown.addEventListener('change', setVoice);
   options.forEach(option => option.addEventListener('change', setOption));
-  speakButton.addEventListener('click', toggle);
-  stopButton.addEventListener('click', () => toggle(false));
-
+  speakButton.addEventListener('click',   myFunc()  );
+  stopButton.addEventListener('click', function(){toggle(false);});
+  //toggle();
 </script>
 
 </body>

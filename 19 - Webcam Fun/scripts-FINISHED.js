@@ -43,7 +43,7 @@ function paintToCanvas() {
     // pixels = greenScreen(pixels);
     // put them back
     ctx.putImageData(pixels, 0, 0);
-  }, 16);
+  },   );
 }
 
 function takePhoto() {
@@ -57,6 +57,10 @@ function takePhoto() {
   link.href = data;
   link.setAttribute('download', 'handsome');
   link.innerHTML = `<img src="${data}" alt="Handsome Man" />`;
+
+
+
+  
   strip.insertBefore(link, strip.firstChild);
 }
 

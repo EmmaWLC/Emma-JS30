@@ -220,6 +220,58 @@
 </style>
 
 <script>
+
+  const triggers = document.querySelectorAll('.cool > li');
+  const background  = document.querySelector('.dropdownBackground');
+  let nav = document.querySelector('nav');
+  
+
+  function showInfo(e){
+    console.log("hi");
+    this.classList.add('trigger-enter');
+    setTimeout(() => {
+      if(this.classList.contains('trigger-enter') === true){
+        this.classList.add('trigger-enter-active');
+      }
+    }, 1500);
+   
+
+    let dropdown = this.querySelector('.dropdown');
+    const dropdownCoords = dropdown.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
+
+    let height = dropdownCoords.height;
+    let width = dropdownCoords.width;
+
+
+    background.style.width = width + 'px';
+    background.style.height = height + 'px';
+
+    background.classList.add('open');
+    background.style.transform = `translateX(${dropdownCoords.left - navCoords.left}px) translateY(${dropdownCoords.top - navCoords.top}px)`;
+    // console.log(`translateY(${dropdownCoords.top}+'px')`);
+
+  }
+
+  function hideInfo(e){
+    this.classList.remove('trigger-enter', 'trigger-enter-active');
+    background.classList.remove('open');
+
+  }
+
+
+  triggers.forEach(trigger => trigger.addEventListener('mouseenter', showInfo));
+  triggers.forEach(trigger => trigger.addEventListener('mouseleave', hideInfo));
+
+  // linkList.forEach(ele => ele.addEventListener('mouseenter', showInfo));
+  // linkList.forEach(ele => ele.addEventListener('mouseleave', hideInfo));
+
+
+
+
+
+
+
 </script>
 
 </body>

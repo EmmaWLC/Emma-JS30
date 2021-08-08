@@ -15,6 +15,42 @@
   </div>
 
 <script>
+  let speedBar = document.querySelector('.speed-bar');
+  let video = document.querySelector('video');
+  let bar = document.querySelector('.speed');
+
+  function changeSpeed(e){
+    const y = e.pageY - this.offsetTop;
+    console.log(y);
+    // console.log(this);
+    let percent = (y / this.offsetHeight);
+    let height = Math.round((y / this.offsetHeight) * 100) + '%';
+    console.log(percent);
+
+    let min = 0.4;
+    let max = 5;
+    let playRate = (max - min) * percent + min;
+    // let playRate = (max - min) * height + min; 變成字串不能乘
+    
+    
+    console.log(playRate);
+
+    speedBar.style.height = height;
+    //speedBar.textContent = playRate.toFixed(1) + 'x';
+    speedBar.textContent = height.slice(0, height.length-1) + 'x';
+    //字串只有加沒有減
+    // '%anieotrsa%' 
+
+
+
+    video.playbackRate = playRate;
+  }
+
+  bar.addEventListener('mousemove', changeSpeed);
+
+
+  
+
 </script>
 </body>
 </html>

@@ -17,7 +17,7 @@
     <h2>LOCAL TAPAS</h2>
     <p></p>
     <ul class="plates">
-      <li>Loading Tapas...</li>
+      <li id="loading">Loading Tapas...</li>
     </ul>
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
@@ -27,8 +27,79 @@
 
 <script>
   const addItems = document.querySelector('.add-items');
-  const itemsList = document.querySelector('.plates');
-  const items = [];
+  const myUL = document.querySelector('.plates');
+  const liElements = JSON.parse(localStorage.getItem('tapases')) || [];
+
+  let loading = myUL.querySelector('#loading');
+    
+  if(liElements.length !== 0){
+      myUL.removeChild(loading);
+    }
+
+
+  for(let i=0; i < liElements.length; i++){
+    var myStr = 
+        `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${liElements[i].done ? 'checked' : ''} />
+          <label for="item${i}">${liElements[i].text}</label>
+        </li>
+      `;
+    myUL.innerHTML += myStr;
+
+  }
+
+  //const items = ;
+  //console.log(liElements);
+
+  function addItem(e){
+    e.preventDefault();
+    const text = (document.querySelector('[name=item]')).value;
+    const ele = {
+      text: text,
+      done: false
+    };
+
+    liElements.push(ele);
+    //pushLi(ele);
+    pushLastLi( liElements );
+    this.reset();
+    console.log(liElements);
+    localStorage.setItem('tapases', JSON.stringify(liElements));
+  }
+
+  // function populateList(plates = [], platesList) {
+
+  // }
+  function pushLastLi(liElements){
+    let loading = myUL.querySelector('#loading');
+    
+    if(loading !== null){
+      myUL.removeChild(loading);
+    }
+    
+    let ele = liElements[liElements.length-1] ;
+    let i = liElements.length-1;
+    var myStr = 
+        `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${ele.done ? 'checked' : ''} />
+          <label for="item${i}">${ele.text}</label>
+        </li>
+      `;
+    myUL.innerHTML += myStr;
+    //console.log(myLi);
+    //myUL.appendChild(); 
+  }
+
+  function toggleDone(e){
+    if(e.target.matches("input") === false) return;
+    liElements[e.target.dataset.index].done = e.target.checked;
+    localStorage.setItem('tapases', JSON.stringify(liElements));
+  }
+
+  myUL.addEventListener('click',toggleDone);
+  addItems.addEventListener('submit',addItem);
 
 </script>
 
